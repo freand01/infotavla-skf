@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infotavla - Skolförvaltningen</title>
+    <style>
+        :root {
+            --molndal-blue: #152b41;
+            --molndal-beige: #f3d6d2;
+            --white: #ffffff;
+            --text-dark: #333;
+        }
+
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Open Sans', Arial, sans-serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+            background-color: var(--white);
+            overflow: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 50px;
+            background: var(--white);
+            border-bottom: 1px solid #eaeaea;
+            z-index: 10;
+        }
+
+        .logo img { height: 70px; width: auto; }
+
+        /* Toppmeny */
+        nav { display: flex; gap: 15px; }
+        nav button {
+            background: none;
+            border: 2px solid transparent;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            color: var(--molndal-blue);
+            transition: all 0.2s ease;
+        }
+        nav button.active { background: var(--molndal-blue); color: white; }
+
+        /* --- HUVUDYTA --- */
+        main {
+            flex: 1;
+            position: relative;
+            background-color: var(--white);
+            overflow-y: auto;
+        }
+
+        .page { display: none; height: 100%; }
+        .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- STARTSIDAN --- */
+        .split-layout { display: flex; height: 100%; width: 100%; }
+        .hero-left { flex: 1.2; background-color: var(--molndal-blue); color: white; padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+        .hero-left h1 { font-size: 3.5rem; font-weight: 400; margin-top: 0; margin-bottom: 60px; line-height: 1.2; max-width: 90%; }
+        .action-menu { display: flex; flex-wrap: wrap; gap: 20px; }
+        .action-btn { background: var(--white); color: var(--molndal-blue); border: none; padding: 16px 32px; border-radius: 6px; font-size: 1.2rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.1s; }
+        .action-btn:active { transform: scale(0.97); background-color: #f0f0f0; }
+        .hero-right { flex: 1; position: relative; background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover no-repeat; }
+        .hero-card { position: absolute; top: 60px; left: -50px; background: var(--molndal-beige); color: var(--text-dark); padding: 40px 50px; border-radius: 12px; width: 85%; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .hero-card h2 { font-size: 2.2rem; margin-top: 0; margin-bottom: 20px; font-weight: 600; }
+        .hero-card p { font-size: 1.3rem; line-height: 1.6; margin: 0; }
+
+        /* --- UNDERSIDOR (Allmän stil) --- */
+        .sub-page-content { background-color: var(--molndal-blue); min-height: 100%; padding: 40px 60px; color: white; }
+        .sub-page-content h1 { font-size: 3rem; margin-top: 0; font-weight: 400; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 40px; }
+
+        /* --- ORGANISATIONSTRÄD --- */
+        .org-container { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .org-line-vertical { width: 4px; height: 30px; background-color: var(--molndal-beige); }
+        .org-box { border: none; border-radius: 8px; font-size: 1.4rem; font-weight: 600; cursor: pointer; box-shadow: 0 6px 12px rgba(0,0,0,0.2); transition: transform 0.1s, box-shadow 0.2s; text-align: center; padding: 20px 30px; }
+        .org-box:active { transform: scale(0.96); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .org-box.level-1 { background-color: var(--molndal-beige); color: var(--molndal-blue); font-size: 1.6rem; padding: 25px 50px; }
+        .org-box.level-2 { background-color: #e2c0bc; color: var(--molndal-blue); font-size: 1.4rem; padding: 20px 40px; }
+        
+        .org-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; max-width: 1400px; margin-top: 30px; padding-top: 30px; border-top: 4px solid var(--molndal-beige); position: relative; }
+        .org-grid::before { content: ''; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 4px; height: 30px; background-color: var(--molndal-beige); }
+        .org-box.level-3 { background-color: white; color: var(--molndal-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px; }
+        .org-box.level-3 span { font-size: 1rem; font-weight: 400; color: #666; margin-top: 8px; }
+
+        /* --- MODAL (Popup för mer information) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 27, 41, 0.8); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { background: white; border-radius: 12px; width: 600px; max-width: 90%; padding: 50px; position: relative; color: var(--text-dark); transform: translateY(20px); transition: transform 0.3s; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-close { position: absolute; top: 20px; right: 20px; background: #f0f0f0; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-dark); }
+        .modal-close:active { background: #ddd; }
+        .modal-content h2 { color: var(--molndal-blue); font-size: 2.5rem; margin-top: 0; margin-bottom: 10px; }
+        .modal-content h3 { color: #666; font-size: 1.2rem; font-weight: 600; margin-top: 0; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-list { list-style-type: none; padding: 0; margin: 0; }
+        .modal-list li { font-size: 1.3rem; padding: 12px 0; border-bottom: 1px solid #eee; position: relative; padding-left: 25px; }
+        .modal-list li::before { content: '•'; color: var(--molndal-blue); font-size: 2rem; position: absolute; left: 0; top: 6px; line-height: 1; }
+        .modal-list li:last-child { border-bottom: none; }
+
+        /* --- KONFERENSRUM --- */
+        .room-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .room-card { background: white; border-radius: 12px; overflow: hidden; color: var(--text-dark); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .room-card img { width: 100%; height: 220px; object-fit: cover; background: #ddd; }
+        .room-info { padding: 30px; }
+        .room-info h3 { margin-top: 0; font-size: 1.8rem; color: var(--molndal-blue); }
+        .room-info p { font-size: 1.1rem; line-height: 1.5; color: #555; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="logga mölndal.jpg" alt="Mölndals Stad">
+    </div>
+    <nav>
+        <button onclick="showPage('home')" id="nav-home" class="active">Hem</button>
+        <button onclick="showPage('org')" id="nav-org">Organisation</button>
+        <button onclick="showPage('rooms')" id="nav-rooms">Konferensrum</button>
+        <button onclick="showPage('news')" id="nav-news">Aktuellt</button>
+    </nav>
+</header>
+
+<main>
+    <div id="home" class="page active">
+        <div class="split-layout">
+            <div class="hero-left">
+                <h1>Välkommen till skolförvaltningen, våning 4!</h1>
+                <div class="action-menu">
+                    <button class="action-btn" onclick="showPage('org')">Organisation</button>
+                    <button class="action-btn" onclick="showPage('rooms')">Våra konferensrum</button>
+                    <button class="action-btn" onclick="showPage('news')">Aktuellt</button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <h2>Dagens information</h2>
+                    <p>Välkommen till vår digitala informationstavla. Tryck på knapparna till vänster för att hitta rätt på våningen eller se hur vi är organiserade.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="org" class="page">
+        <div class="sub-page-content">
+            <h1>Vår Organisation</h1>
+            
+            <div class="org-container">
+                <button class="org-box level-1" onclick="openModal('fc')">Förvaltningschef</button>
+                <div class="org-line-vertical"></div>
+                <button class="org-box level-2" onclick="openModal('lg')">Skolförvaltningens ledningsgrupp</button>
+                
+                <div class="org-grid">
+                    <button class="org-box level-3" onclick="openModal('f6')">Skola F-6 <br><span>Verksamhetschef</span></button>
+                    <button class="org-box level-3" onclick="openModal('79')">Skola 7-9 <br><span>Verksamhetschef</span></button>
+                    <button class="org-box level-3" onclick="openModal('forskola')">Förskola <br><span>Verksamhetschef</span></button>
+                    <button class="org-box level-3" onclick="openModal('elevhalsa')">Barn och elevhälsa <br><span>Chef</span></button>
+                    
+                    <button class="org-box level-3" onclick="openModal('myndighet')">Myndighetsutövning <br><span>Chef</span></button>
+                    <button class="org-box level-3" onclick="openModal('kommunikation')">Kommunikation <br><span>Chef</span></button>
+                    <button class="org-box level-3" onclick="openModal('kvalitet')">Kvalitet, innovation & digitalisering <br><span>Bitr. Förvaltningschef</span></button>
+                    <button class="org-box level-3" onclick="openModal('ekonomi')">Ekonomi & fastighet <br><span>Chef</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rooms" class="page">
+        <div class="sub-page-content">
+            <h1>Våra konferensrum</h1>
+            <div class="room-grid">
+                
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=600&q=80" alt="Rum 412">
+                    <div class="room-info">
+                        <h3>Rum 412</h3>
+                        <p><strong>Kapacitet:</strong> 6 personer<br><strong>Utrustning:</strong> Skärm och videobar för digitala möten.</p>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80" alt="Rum 413">
+                    <div class="room-info">
+                        <h3>Rum 413</h3>
+                        <p><strong>Kapacitet:</strong> 6 personer<br><strong>Utrustning:</strong> Skärm, kamera och konferenshögtalare.</p>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1505409859467-3a796fd5798e?auto=format&fit=crop&w=600&q=80" alt="Rum 414">
+                    <div class="room-info">
+                        <h3>Rum 414</h3>
+                        <p><strong>Kapacitet:</strong> 10 personer<br><strong>Utrustning:</strong> Projektor, kamera och konferenshögtalare.</p>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Rum 415">
+                    <div class="room-info">
+                        <h3>Rum 415</h3>
+                        <p><strong>Kapacitet:</strong> 8 personer<br><strong>Utrustning:</strong> Skärm, kamera och konferenshögtalare.</p>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1573496130141-209d200cebd8?auto=format&fit=crop&w=600&q=80" alt="Rum 422B">
+                    <div class="room-info">
+                        <h3>Rum 422B</h3>
+                        <p><strong>Kapacitet:</strong> 4 personer<br><strong>Utrustning:</strong> Skärm och videobar för digitala möten.</p>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80" alt="Skypebåsen">
+                    <div class="room-info">
+                        <h3>Skypebåsen</h3>
+                        <p><strong>Kapacitet:</strong> 1-2 personer beroende på rum<br><strong>Utrustning:</strong> Tre separata bås för enskilda samtal. Två singelbås (endast skärm) samt ett dubbelbås (skärm och kamera).</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="news" class="page">
+        <div style="width: 100%; height: 100%; background: #000;">
+            <iframe 
+                src="https://docs.google.com/presentation/d/e/2PACX-1vRewLM7Lo50uiDDe8S-f7hFlWYZzqa8osZViakCHAqeVLt63c_lkCH_9YXGnCk41R_HmG6fWtK-6ETK/pubembed?start=true&loop=true&delayms=3000&rm=minimal" 
+                frameborder="0" 
+                width="100%" 
+                height="100%" 
+                allowfullscreen="true" 
+                mozallowfullscreen="true" 
+                webkitallowfullscreen="true">
+            </iframe>
+        </div>
+    </div>
+</main>
+
+<div class="modal-overlay" id="org-modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal(null)">✕</button>
+        <h2 id="modal-title">Titel</h2>
+        <h3 id="modal-role">Roll</h3>
+        <ul class="modal-list" id="modal-list">
+            </ul>
+    </div>
+</div>
+
+<script>
+    let idleTimer;
+
+    // Funktion för att byta sida
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(pageId).classList.add('active');
+        const navBtn = document.getElementById('nav-' + pageId);
+        if(navBtn) navBtn.classList.add('active');
+        
+        resetIdleTimer(); // Starta om timern vid varje interaktion
+    }
+
+    // Timer som skickar tillbaka besökaren till Hem-skärmen efter 2 minuter (120 000 ms)
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            showPage('home');
+            closeModal(null); // Stänger även modulen om någon lämnat den öppen
+        }, 120000); 
+    }
+
+    // Lyssna på touch och klick för att hålla skärmen vid liv
+    window.onload = resetIdleTimer;
+    window.onmousemove = resetIdleTimer;
+    window.onmousedown = resetIdleTimer;
+    window.ontouchstart = resetIdleTimer;
+    window.onclick = resetIdleTimer;
+    window.onkeypress = resetIdleTimer;
+
+    // Data från din bild
+    const orgData = {
+        'fc': { title: 'Förvaltningschef', role: 'Ledning', items: ['Övergripande ansvar för skolförvaltningen.', 'Chef: [Namn här]'] },
+        'lg': { title: 'Skolförvaltningens ledningsgrupp', role: 'Ledningsgrupp', items: ['Samordnar förvaltningens strategiska arbete.', 'Består av förvaltningschef och verksamhetschefer.'] },
+        'f6': { title: 'Skola F-6', role: 'Verksamhetschef', items: ['Grundskola'] },
+        '79': { title: 'Skola 7-9', role: 'Verksamhetschef', items: ['Grundskola', 'Språkcentrum', 'Kulturskolan', 'Anpassad grundskola', 'Verksamhetsutvecklare'] },
+        'forskola': { title: 'Förskola', role: 'Verksamhetschef', items: ['Förskola', 'Pedagogisk omsorg', 'Barnhälsa', 'Öppen förskola / familjecentraler', 'Verksamhetsutvecklare'] },
+        'elevhalsa': { title: 'Barn och elevhälsa', role: 'Chef', items: ['Professionsnätverk', 'Central elevhälsa', 'Verksamhetschef enligt HSL', 'Mottagning anpassad grundskola', 'Samverkan hälsa, främjande och förebyggande insatser'] },
+        'myndighet': { title: 'Myndighetsutövning', role: 'Chef', items: ['Nämnd och administration', 'Juridik', 'Skolskjuts', 'Placering skola/förskola', 'Tillsyn och tillstånd', 'Registratur och arkiv'] },
+        'kommunikation': { title: 'Kommunikation', role: 'Chef', items: ['Kommunikation och PR', 'Intern information'] },
+        'kvalitet': { title: 'Kvalitet, innovation & digitalisering', role: 'Biträdande förvaltningschef / Chef', items: ['Kvalitet och innovation', 'Digitalisering', 'IT'] },
+        'ekonomi': { title: 'Ekonomi och fastighet', role: 'Chef', items: ['Ekonomi', 'Lokalplanering', 'Projektsamordning lokaler', 'Säkerhet'] }
+    };
+
+    // Hantera Modal (Popup)
+    const modal = document.getElementById('org-modal');
+    
+    function openModal(unitKey) {
+        const data = orgData[unitKey];
+        document.getElementById('modal-title').innerText = data.title;
+        document.getElementById('modal-role').innerText = data.role;
+        
+        const ul = document.getElementById('modal-list');
+        ul.innerHTML = ''; 
+        data.items.forEach(item => {
+            let li = document.createElement('li');
+            li.innerText = item;
+            ul.appendChild(li);
+        });
+        
+        modal.classList.add('active');
+        resetIdleTimer();
+    }
+
+    function closeModal(event) {
+        if (!event || event.target === modal) {
+            modal.classList.remove('active');
+        }
+        resetIdleTimer();
+    }
+</script>
+
+</body>
+</html>
