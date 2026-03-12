@@ -8,6 +8,7 @@
         :root {
             --molndal-blue: #152b41;
             --molndal-beige: #f3d6d2;
+            --molndal-beige-dark: #e2c0bc;
             --white: #ffffff;
             --text-dark: #333;
         }
@@ -19,35 +20,67 @@
             display: flex; 
             flex-direction: column; 
             height: 100vh; 
-            background-color: var(--white);
+            background-color: var(--molndal-blue);
+            color: white;
             overflow: hidden;
         }
 
         /* --- HEADER --- */
         header {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 50px;
+            flex-direction: column; 
+            width: 100%;
+            padding: 20px 40px; 
             background: var(--white);
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 2px solid var(--molndal-beige);
             z-index: 10;
         }
 
-        .logo img { height: 70px; width: auto; }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 15px; 
+        }
 
-        /* Toppmeny */
-        nav { display: flex; gap: 15px; }
+        .logo img { height: 70px; width: auto; display: block; }
+
+        .datetime-container {
+            text-align: right;
+            color: var(--molndal-blue);
+        }
+        .time-text {
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .date-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+            margin-top: 5px;
+            text-transform: capitalize; 
+        }
+
+        nav { 
+            display: flex; 
+            gap: 10px; 
+            width: 100%; 
+            justify-content: center; 
+            overflow-x: auto; 
+            padding-bottom: 5px; 
+        }
         nav button {
             background: none;
             border: 2px solid transparent;
-            padding: 12px 24px;
-            font-size: 1.1rem;
+            padding: 12px 20px;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
             border-radius: 6px;
             color: var(--molndal-blue);
-            transition: all 0.2s ease;
+            white-space: nowrap;
         }
         nav button.active { background: var(--molndal-blue); color: white; }
 
@@ -55,8 +88,9 @@
         main {
             flex: 1;
             position: relative;
-            background-color: var(--white);
+            background-color: var(--molndal-blue);
             overflow-y: auto;
+            padding: 30px;
         }
 
         .page { display: none; height: 100%; }
@@ -64,62 +98,172 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- STARTSIDAN --- */
-        .split-layout { display: flex; height: 100%; width: 100%; }
-        .hero-left { flex: 1.2; background-color: var(--molndal-blue); color: white; padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
-        .hero-left h1 { font-size: 3.5rem; font-weight: 400; margin-top: 0; margin-bottom: 60px; line-height: 1.2; max-width: 90%; }
-        .action-menu { display: flex; flex-wrap: wrap; gap: 20px; }
-        .action-btn { background: var(--white); color: var(--molndal-blue); border: none; padding: 16px 32px; border-radius: 6px; font-size: 1.2rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.1s; }
+        .portrait-home {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-text {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-top: 0;
+            line-height: 1.2;
+        }
+
+        .action-menu {
+            display: flex;
+            flex-direction: row; 
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .action-btn {
+            background: var(--white);
+            color: var(--molndal-blue);
+            border: none;
+            padding: 25px;
+            border-radius: 8px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+            text-align: center;
+            flex: 1 1 250px; 
+            transition: transform 0.1s;
+        }
         .action-btn:active { transform: scale(0.97); background-color: #f0f0f0; }
-        .hero-right { flex: 1; position: relative; background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover no-repeat; }
-        .hero-card { position: absolute; top: 60px; left: -50px; background: var(--molndal-beige); color: var(--text-dark); padding: 40px 50px; border-radius: 12px; width: 85%; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+
+        .hero-card {
+            background: var(--molndal-beige);
+            color: var(--text-dark);
+            padding: 40px;
+            border-radius: 15px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
         .hero-card h2 { font-size: 2.2rem; margin-top: 0; margin-bottom: 20px; font-weight: 600; }
-        .hero-card p { font-size: 1.3rem; line-height: 1.6; margin: 0; }
+        .hero-card p { font-size: 1.4rem; line-height: 1.6; margin: 0; }
 
         /* --- UNDERSIDOR (Allmän stil) --- */
-        .sub-page-content { background-color: var(--molndal-blue); min-height: 100%; padding: 40px 60px; color: white; }
-        .sub-page-content h1 { font-size: 3rem; margin-top: 0; font-weight: 400; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 40px; }
-
-        /* --- ORGANISATIONSTRÄD --- */
-        .org-container { display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .org-line-vertical { width: 4px; height: 30px; background-color: var(--molndal-beige); }
-        .org-box { border: none; border-radius: 8px; font-size: 1.4rem; font-weight: 600; cursor: pointer; box-shadow: 0 6px 12px rgba(0,0,0,0.2); transition: transform 0.1s, box-shadow 0.2s; text-align: center; padding: 20px 30px; }
-        .org-box:active { transform: scale(0.96); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .org-box.level-1 { background-color: var(--molndal-beige); color: var(--molndal-blue); font-size: 1.6rem; padding: 25px 50px; }
-        .org-box.level-2 { background-color: #e2c0bc; color: var(--molndal-blue); font-size: 1.4rem; padding: 20px 40px; }
+        .sub-page-content h1 { font-size: 3rem; margin-top: 0; font-weight: 400; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 15px; text-align: center; }
         
-        .org-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; max-width: 1400px; margin-top: 30px; padding-top: 30px; border-top: 4px solid var(--molndal-beige); position: relative; }
-        .org-grid::before { content: ''; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 4px; height: 30px; background-color: var(--molndal-beige); }
-        .org-box.level-3 { background-color: white; color: var(--molndal-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px; }
-        .org-box.level-3 span { font-size: 1rem; font-weight: 400; color: #666; margin-top: 8px; }
+        .org-instruction {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
 
-        /* --- MODAL (Popup för mer information) --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 27, 41, 0.8); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        /* --- ORGANISATION --- */
+        .org-grid-portrait {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+        
+        .org-box {
+            background-color: var(--white);
+            color: var(--molndal-blue);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 20px;
+            text-align: left;
+            position: relative;
+            padding-right: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .org-box::after { content: '→'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--molndal-beige-dark); }
+        .org-box:active { background-color: var(--molndal-beige); transform: scale(0.98); }
+        
+        /* De översta lådorna centreras och tar hela bredden */
+        .org-box.level-top { 
+            background-color: var(--molndal-beige); 
+            color: var(--molndal-blue); 
+            font-size: 1.5rem; 
+            grid-column: 1 / -1; 
+            text-align: center;
+            padding-left: 40px; /* Balanserar upp höger-paddingen för perfekt centrering */
+        }
+        .org-box span { font-size: 1rem; font-weight: 400; color: #666; display: block; margin-top: 8px; line-height: 1.4; }
+
+        /* --- MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 27, 41, 0.9); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-content { background: white; border-radius: 12px; width: 600px; max-width: 90%; padding: 50px; position: relative; color: var(--text-dark); transform: translateY(20px); transition: transform 0.3s; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-content { background: white; border-radius: 12px; width: 90%; max-width: 600px; padding: 40px; position: relative; color: var(--text-dark); transform: translateY(20px); transition: transform 0.3s; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .modal-close { position: absolute; top: 20px; right: 20px; background: #f0f0f0; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-dark); }
-        .modal-close:active { background: #ddd; }
-        .modal-content h2 { color: var(--molndal-blue); font-size: 2.5rem; margin-top: 0; margin-bottom: 10px; }
-        .modal-content h3 { color: #666; font-size: 1.2rem; font-weight: 600; margin-top: 0; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-close { position: absolute; top: 20px; right: 20px; background: #f0f0f0; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-dark); z-index: 10; }
+        
+        /* Modalfotografi / Bild (Fri form) */
+        .modal-image-container { display: none; text-align: center; margin-bottom: 25px; }
+        .modal-image-container.active { display: block; }
+        
+        .modal-image-container img { 
+            max-width: 100%; 
+            max-height: 250px;
+            width: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            margin: 0 auto; 
+            display: block; 
+        }
+        
+        .modal-caption { font-size: 0.9rem; color: #888; margin-top: 10px; font-style: italic; }
+
+        .modal-content h2 { color: var(--molndal-blue); font-size: 2.2rem; margin-top: 0; margin-bottom: 10px; text-align: center; }
+        .modal-content h3 { color: #666; font-size: 1.2rem; font-weight: 600; margin-top: 0; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
         .modal-list { list-style-type: none; padding: 0; margin: 0; }
-        .modal-list li { font-size: 1.3rem; padding: 12px 0; border-bottom: 1px solid #eee; position: relative; padding-left: 25px; }
-        .modal-list li::before { content: '•'; color: var(--molndal-blue); font-size: 2rem; position: absolute; left: 0; top: 6px; line-height: 1; }
+        .modal-list li { font-size: 1.2rem; padding: 12px 0; border-bottom: 1px solid #eee; position: relative; padding-left: 25px; }
+        .modal-list li::before { content: '•'; color: var(--molndal-blue); font-size: 1.8rem; position: absolute; left: 0; top: 6px; line-height: 1; }
         .modal-list li:last-child { border-bottom: none; }
 
         /* --- KONFERENSRUM --- */
-        .room-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .room-card { background: white; border-radius: 12px; overflow: hidden; color: var(--text-dark); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-        .room-card img { width: 100%; height: 220px; object-fit: cover; background: #ddd; }
-        .room-info { padding: 30px; }
-        .room-info h3 { margin-top: 0; font-size: 1.8rem; color: var(--molndal-blue); }
+        .room-grid-portrait { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 30px; 
+            width: 100%; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding-bottom: 40px; 
+        }
+        .room-card { background: white; border-radius: 12px; overflow: hidden; color: var(--text-dark); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+        .room-card img { width: 100%; height: 200px; object-fit: cover; background: #ddd; }
+        .room-info { padding: 25px; }
+        .room-info h3 { margin-top: 0; font-size: 1.6rem; color: var(--molndal-blue); }
         .room-info p { font-size: 1.1rem; line-height: 1.5; color: #555; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">
-        <img src="logga mölndal.jpg" alt="Mölndals Stad">
+    <div class="header-top">
+        <div class="logo">
+            <img src="logga mölndal.jpg" alt="Mölndals Stad">
+        </div>
+        <div class="datetime-container" id="datetime-display">
+            </div>
     </div>
     <nav>
         <button onclick="showPage('home')" id="nav-home" class="active">Hem</button>
@@ -131,20 +275,18 @@
 
 <main>
     <div id="home" class="page active">
-        <div class="split-layout">
-            <div class="hero-left">
+        <div class="portrait-home">
+            <div class="hero-text">
                 <h1>Välkommen till skolförvaltningen, våning 4!</h1>
-                <div class="action-menu">
-                    <button class="action-btn" onclick="showPage('org')">Organisation</button>
-                    <button class="action-btn" onclick="showPage('rooms')">Våra konferensrum</button>
-                    <button class="action-btn" onclick="showPage('news')">Aktuellt</button>
-                </div>
             </div>
-            <div class="hero-right">
-                <div class="hero-card">
-                    <h2>Dagens information</h2>
-                    <p>Välkommen till vår digitala informationstavla. Tryck på knapparna till vänster för att hitta rätt på våningen eller se hur vi är organiserade.</p>
-                </div>
+            <div class="action-menu">
+                <button class="action-btn" onclick="showPage('org')">Organisation</button>
+                <button class="action-btn" onclick="showPage('rooms')">Våra konferensrum</button>
+                <button class="action-btn" onclick="showPage('news')">Aktuellt</button>
+            </div>
+            <div class="hero-card">
+                <h2>Dagens information</h2>
+                <p>Använd menyn ovan eller knapparna här för att hitta rätt på våningen, se hur vi är organiserade eller läsa de senaste nyheterna.</p>
             </div>
         </div>
     </div>
@@ -152,23 +294,21 @@
     <div id="org" class="page">
         <div class="sub-page-content">
             <h1>Vår Organisation</h1>
+            <p class="org-instruction">Klicka på respektive ruta för att se mer information och ansvarsområden.</p>
             
-            <div class="org-container">
-                <button class="org-box level-1" onclick="openModal('fc')">Förvaltningschef</button>
-                <div class="org-line-vertical"></div>
-                <button class="org-box level-2" onclick="openModal('lg')">Skolförvaltningens ledningsgrupp</button>
+            <div class="org-grid-portrait">
+                <button class="org-box level-top" onclick="openModal('fc')">Förvaltningschef</button>
+                <button class="org-box level-top" onclick="openModal('lg')">Skolförvaltningens ledningsgrupp</button>
                 
-                <div class="org-grid">
-                    <button class="org-box level-3" onclick="openModal('f6')">Skola F-6 <br><span>Verksamhetschef</span></button>
-                    <button class="org-box level-3" onclick="openModal('79')">Skola 7-9 <br><span>Verksamhetschef</span></button>
-                    <button class="org-box level-3" onclick="openModal('forskola')">Förskola <br><span>Verksamhetschef</span></button>
-                    <button class="org-box level-3" onclick="openModal('elevhalsa')">Barn och elevhälsa <br><span>Chef</span></button>
-                    
-                    <button class="org-box level-3" onclick="openModal('myndighet')">Myndighetsutövning <br><span>Chef</span></button>
-                    <button class="org-box level-3" onclick="openModal('kommunikation')">Kommunikation <br><span>Chef</span></button>
-                    <button class="org-box level-3" onclick="openModal('kvalitet')">Kvalitet, innovation & digitalisering <br><span>Bitr. Förvaltningschef</span></button>
-                    <button class="org-box level-3" onclick="openModal('ekonomi')">Ekonomi & fastighet <br><span>Chef</span></button>
-                </div>
+                <button class="org-box" onclick="openModal('f6')">Skola F-6 <br><span>Caroline Billing<br>Verksamhetschef</span></button>
+                <button class="org-box" onclick="openModal('79')">Skola 7-9 <br><span>Caroline Billing<br>Tf Verksamhetschef</span></button>
+                <button class="org-box" onclick="openModal('forskola')">Förskola <br><span>Anna Brügge Josefsson<br>Verksamhetschef</span></button>
+                <button class="org-box" onclick="openModal('elevhalsa')">Barn och elevhälsa <br><span>Torbjörn Brunström<br>Chef</span></button>
+                
+                <button class="org-box" onclick="openModal('myndighet')">Myndighetsutövning <br><span>Erica Goding<br>Chef</span></button>
+                <button class="org-box" onclick="openModal('kommunikation')">Kommunikation <br><span>Erica Goding<br>Chef</span></button>
+                <button class="org-box" onclick="openModal('kvalitet')">Kvalitet, innovation & digitalisering <br><span>Erica Ekenmo<br>Bitr. Förvaltningschef</span></button>
+                <button class="org-box" onclick="openModal('ekonomi')">Ekonomi & fastighet <br><span>Sten-Inge Lilja<br>Chef</span></button>
             </div>
         </div>
     </div>
@@ -176,7 +316,7 @@
     <div id="rooms" class="page">
         <div class="sub-page-content">
             <h1>Våra konferensrum</h1>
-            <div class="room-grid">
+            <div class="room-grid-portrait">
                 
                 <div class="room-card">
                     <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=600&q=80" alt="Rum 412">
@@ -222,7 +362,7 @@
                     <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80" alt="Skypebåsen">
                     <div class="room-info">
                         <h3>Skypebåsen</h3>
-                        <p><strong>Kapacitet:</strong> 1-2 personer beroende på rum<br><strong>Utrustning:</strong> Tre separata bås för enskilda samtal. Två singelbås (endast skärm) samt ett dubbelbås (skärm och kamera).</p>
+                        <p>Tre separata bås: Två singelbås (endast skärm) samt ett dubbelbås (skärm och kamera).</p>
                     </div>
                 </div>
 
@@ -231,7 +371,7 @@
     </div>
 
     <div id="news" class="page">
-        <div style="width: 100%; height: 100%; background: #000;">
+        <div style="width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center;">
             <iframe 
                 src="https://docs.google.com/presentation/d/e/2PACX-1vRewLM7Lo50uiDDe8S-f7hFlWYZzqa8osZViakCHAqeVLt63c_lkCH_9YXGnCk41R_HmG6fWtK-6ETK/pubembed?start=true&loop=true&delayms=3000&rm=minimal" 
                 frameborder="0" 
@@ -248,6 +388,12 @@
 <div class="modal-overlay" id="org-modal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal(null)">✕</button>
+        
+        <div class="modal-image-container" id="modal-image-container">
+            <img id="modal-image" src="" alt="Profilbild">
+            <div class="modal-caption" id="modal-caption"></div>
+        </div>
+
         <h2 id="modal-title">Titel</h2>
         <h3 id="modal-role">Roll</h3>
         <ul class="modal-list" id="modal-list">
@@ -256,9 +402,24 @@
 </div>
 
 <script>
+    // --- KLOCKA OCH DATUM ---
+    function updateDateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+        let dateString = now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
+        
+        const display = document.getElementById('datetime-display');
+        if (display) {
+            display.innerHTML = `<div class="time-text">${timeString}</div><div class="date-text">${dateString}</div>`;
+        }
+    }
+    
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // --- SIDHANTERING OCH TIMEOUT ---
     let idleTimer;
 
-    // Funktion för att byta sida
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -267,19 +428,17 @@
         const navBtn = document.getElementById('nav-' + pageId);
         if(navBtn) navBtn.classList.add('active');
         
-        resetIdleTimer(); // Starta om timern vid varje interaktion
+        resetIdleTimer();
     }
 
-    // Timer som skickar tillbaka besökaren till Hem-skärmen efter 2 minuter (120 000 ms)
     function resetIdleTimer() {
         clearTimeout(idleTimer);
         idleTimer = setTimeout(() => {
             showPage('home');
-            closeModal(null); // Stänger även modulen om någon lämnat den öppen
+            closeModal(null);
         }, 120000); 
     }
 
-    // Lyssna på touch och klick för att hålla skärmen vid liv
     window.onload = resetIdleTimer;
     window.onmousemove = resetIdleTimer;
     window.onmousedown = resetIdleTimer;
@@ -287,27 +446,41 @@
     window.onclick = resetIdleTimer;
     window.onkeypress = resetIdleTimer;
 
-    // Data från din bild
+    // --- DATA FÖR ORGANISATION ---
     const orgData = {
-        'fc': { title: 'Förvaltningschef', role: 'Ledning', items: ['Övergripande ansvar för skolförvaltningen.', 'Chef: [Namn här]'] },
+        'fc': { 
+            title: 'Förvaltningschef', 
+            role: 'Fredrik Hellsten', 
+            items: ['Övergripande ansvar för skolförvaltningen.'],
+            image: 'Fredrik_Hellsten_2.jpg',
+            caption: 'Fotograf: Emmy Jonsson'
+        },
         'lg': { title: 'Skolförvaltningens ledningsgrupp', role: 'Ledningsgrupp', items: ['Samordnar förvaltningens strategiska arbete.', 'Består av förvaltningschef och verksamhetschefer.'] },
-        'f6': { title: 'Skola F-6', role: 'Verksamhetschef', items: ['Grundskola'] },
-        '79': { title: 'Skola 7-9', role: 'Verksamhetschef', items: ['Grundskola', 'Språkcentrum', 'Kulturskolan', 'Anpassad grundskola', 'Verksamhetsutvecklare'] },
-        'forskola': { title: 'Förskola', role: 'Verksamhetschef', items: ['Förskola', 'Pedagogisk omsorg', 'Barnhälsa', 'Öppen förskola / familjecentraler', 'Verksamhetsutvecklare'] },
-        'elevhalsa': { title: 'Barn och elevhälsa', role: 'Chef', items: ['Professionsnätverk', 'Central elevhälsa', 'Verksamhetschef enligt HSL', 'Mottagning anpassad grundskola', 'Samverkan hälsa, främjande och förebyggande insatser'] },
-        'myndighet': { title: 'Myndighetsutövning', role: 'Chef', items: ['Nämnd och administration', 'Juridik', 'Skolskjuts', 'Placering skola/förskola', 'Tillsyn och tillstånd', 'Registratur och arkiv'] },
-        'kommunikation': { title: 'Kommunikation', role: 'Chef', items: ['Kommunikation och PR', 'Intern information'] },
-        'kvalitet': { title: 'Kvalitet, innovation & digitalisering', role: 'Biträdande förvaltningschef / Chef', items: ['Kvalitet och innovation', 'Digitalisering', 'IT'] },
-        'ekonomi': { title: 'Ekonomi och fastighet', role: 'Chef', items: ['Ekonomi', 'Lokalplanering', 'Projektsamordning lokaler', 'Säkerhet'] }
+        'f6': { title: 'Skola F-6', role: 'Caroline Billing, Verksamhetschef', items: ['Grundskola'] },
+        '79': { title: 'Skola 7-9', role: 'Caroline Billing, Tf Verksamhetschef', items: ['Grundskola', 'Språkcentrum', 'Kulturskolan', 'Anpassad grundskola', 'Verksamhetsutvecklare'] },
+        'forskola': { title: 'Förskola', role: 'Anna Brügge Josefsson, Verksamhetschef', items: ['Förskola', 'Pedagogisk omsorg', 'Barnhälsa', 'Öppen förskola / familjecentraler', 'Verksamhetsutvecklare'] },
+        'elevhalsa': { title: 'Barn och elevhälsa', role: 'Torbjörn Brunström, Chef', items: ['Professionsnätverk', 'Central elevhälsa', 'Verksamhetschef enligt HSL', 'Mottagning anpassad grundskola', 'Samverkan hälsa, främjande och förebyggande insatser'] },
+        'myndighet': { title: 'Myndighetsutövning', role: 'Erica Goding, Chef', items: ['Nämnd och administration', 'Juridik', 'Skolskjuts', 'Placering skola/förskola', 'Tillsyn och tillstånd', 'Registratur och arkiv'] },
+        'kommunikation': { title: 'Kommunikation', role: 'Erica Goding, Chef', items: ['Kommunikation och PR', 'Intern information'] },
+        'kvalitet': { title: 'Kvalitet, innovation & digitalisering', role: 'Erica Ekenmo, Biträdande förvaltningschef', items: ['Kvalitet och innovation', 'Digitalisering', 'IT'] },
+        'ekonomi': { title: 'Ekonomi och fastighet', role: 'Sten-Inge Lilja, Chef', items: ['Ekonomi', 'Lokalplanering', 'Projektsamordning lokaler', 'Säkerhet'] }
     };
 
-    // Hantera Modal (Popup)
     const modal = document.getElementById('org-modal');
     
     function openModal(unitKey) {
         const data = orgData[unitKey];
         document.getElementById('modal-title').innerText = data.title;
         document.getElementById('modal-role').innerText = data.role;
+        
+        const imgContainer = document.getElementById('modal-image-container');
+        if (data.image) {
+            document.getElementById('modal-image').src = data.image;
+            document.getElementById('modal-caption').innerText = data.caption || '';
+            imgContainer.classList.add('active');
+        } else {
+            imgContainer.classList.remove('active');
+        }
         
         const ul = document.getElementById('modal-list');
         ul.innerHTML = ''; 
