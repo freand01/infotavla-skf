@@ -254,7 +254,12 @@
         .org-box { font-family: 'Inter', Arial, sans-serif; background-color: var(--c-vit); color: var(--c-morkbla); border: none; border-radius: 8px; font-size: 1.3rem; font-weight: 600; cursor: pointer; padding: 20px; text-align: left; position: relative; padding-right: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
         .org-box::after { content: '→'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--c-rosa); }
         .org-box:active { background-color: var(--c-ljusgra); transform: scale(0.98); }
+        
+        /* Politisk nivå - Beige */
+        .org-box.level-board { background-color: var(--c-beige); color: var(--c-morkbla); font-size: 1.6rem; grid-column: 1 / -1; text-align: center; padding-left: 40px; }
+        /* Administrativ ledning - Ljusrosa */
         .org-box.level-top { background-color: var(--c-ljusrosa); color: var(--c-morkbla); font-size: 1.5rem; grid-column: 1 / -1; text-align: center; padding-left: 40px; }
+        
         .org-box span { font-size: 1rem; font-weight: 400; color: var(--c-morkgra); display: block; margin-top: 8px; line-height: 1.4; }
 
         /* --- MODAL --- */
@@ -344,8 +349,11 @@
             <h1>Vår Organisation</h1>
             <p class="org-instruction">Klicka på respektive ruta för att se mer information och ansvarsområden.</p>
             <div class="org-grid-portrait">
-                <button class="org-box level-top" onclick="openModal('fc')">Förvaltningschef</button>
+                <button class="org-box level-board" onclick="openModal('sn')">Skolnämnden <br><span>Politisk ledning</span></button>
+                
+                <button class="org-box level-top" onclick="openModal('fc')">Förvaltningschef <br><span>Fredrik Hellsten</span></button>
                 <button class="org-box level-top" onclick="openModal('lg')">Skolförvaltningens ledningsgrupp</button>
+                
                 <button class="org-box" onclick="openModal('f6')">Skola F-6 <br><span>Caroline Billing<br>Verksamhetschef</span></button>
                 <button class="org-box" onclick="openModal('79')">Skola 7-9 <br><span>Caroline Billing<br>Tf Verksamhetschef</span></button>
                 <button class="org-box" onclick="openModal('forskola')">Förskola <br><span>Anna Brügge Josefsson<br>Verksamhetschef</span></button>
@@ -395,7 +403,6 @@
 <script>
     // --- TEMADAGAR & LOKALA FAKTA LOGIK ---
     
-    // Komprimerad lista för att slippa enorma mängder kod.
     const rawThemeDays = [
         "1-1|Int. pizzadagen", "1-2|Världsdagen för introverta", "1-3|Int. JRR Tolkien-dagen", "1-4|Punktskriftens dag", "1-7|Temadagens dag", "1-12|Marsipanens dag", "1-15|Tulpanens dag", "1-16|Int. LCHF-dagen", "1-18|Världsreligionsdagen", "1-19|Martin Luther King-dagen", "1-20|Lösenordsbytardagen", "1-21|Kramens dag", "1-22|Vinets dag", "1-23|Elens dag", "1-24|Frufridagen", "1-25|Halvsnödagen", "1-27|Förintelsens minnesdag", "1-28|Int. Legodagen", "1-29|Veganpizzadagen", "1-31|Släktforskningens dag",
         "2-1|Vegetariska dagen", "2-2|Murmeldjursdagen", "2-3|Andningens dag", "2-4|Världscancerdagen", "2-5|Nutelladagen", "2-6|Samernas nationaldag", "2-7|Tankens dag", "2-8|Äggahalvans dag", "2-9|Int. epilepsidagen", "2-10|Baljväxtens dag", "2-11|Int. 112-dagen", "2-12|Darwins födelsedag", "2-13|Världsradiodagen", "2-14|Alla hjärtans dag", "2-15|Int. barncancerdagen", "2-17|Int. pannkaksdagen", "2-18|Fotens dag", "2-19|Knäckebrödets dag", "2-20|Slarvighetens dag", "2-21|Int. dagen för modersmål", "2-22|Alla scouters dag", "2-23|Kakelplattans dag", "2-24|Int. EBM-dagen", "2-25|Grapefruktens dag", "2-26|Husmanskostens dag", "2-27|Int. isbjörnsdagen", "2-28|Int. musarmsdagen",
@@ -411,7 +418,6 @@
         "12-1|Int. AIDS-dagen", "12-2|Modelljärnvägens dag", "12-3|Int. dagen för handikappade", "12-4|Armbandsklockans dag", "12-5|Världsdagen för jordmån", "12-6|Finlands självständighetsdag", "12-7|Int. dagen för civil luftfart", "12-9|Int. dagen mot korruption", "12-10|Mänskliga rättigheternas dag", "12-11|Int. dagen för världens berg", "12-12|Julstjärnans dag", "12-18|Jultröjans dag", "12-20|Mänskliga solidaritetens dag", "12-21|Skumtomtens dag", "12-27|Nationella regifting-dagen", "12-29|Statisternas dag"
     ];
 
-    // AI-motorn som automatiskt sätter rätt emoji baserat på texten i temadagen
     function getAutoEmoji(name) {
         const text = name.toLowerCase();
         if (text.includes('pizza')) return '🍕';
@@ -444,20 +450,15 @@
         return '🎉'; 
     }
 
-    // Bygg databasen dynamiskt
     const themeDaysDb = {};
     rawThemeDays.forEach(item => {
         const parts = item.split('|');
         const dateKey = parts[0];
         const name = parts[1];
         if (!themeDaysDb[dateKey]) themeDaysDb[dateKey] = [];
-        themeDaysDb[dateKey].push({
-            icon: getAutoEmoji(name),
-            name: name
-        });
+        themeDaysDb[dateKey].push({ icon: getAutoEmoji(name), name: name });
     });
 
-    // Slumpmässiga fakta som visas när det INTE är en temadag
     const funFacts = [
         { icon: "💡", name: "Mölndal fick stadsrättigheter år 1922." },
         { icon: "🏫", name: "I Mölndal finns över 10 000 barn och elever." },
@@ -472,56 +473,40 @@
     function initThemes() {
         const now = new Date();
         const dateKey = (now.getMonth() + 1) + "-" + now.getDate();
-        
         const titleElement = document.getElementById('theme-title');
         const contentElement = document.getElementById('theme-content');
         
-        // Kolla om vi har en temadag exakt idag
         if (themeDaysDb[dateKey] && themeDaysDb[dateKey].length > 0) {
             currentItems = themeDaysDb[dateKey];
             titleElement.innerText = "Dagens Temadag";
         } else {
-            // Om inte, ladda in lokala fakta
             currentItems = funFacts;
             titleElement.innerText = "Visste du att...";
         }
 
-        // Om vi har mer än 1 sak att visa, slå på animationen
         if (currentItems.length > 1) {
             contentElement.classList.add('fade-in-out');
             if(themeInterval) clearInterval(themeInterval);
             themeInterval = setInterval(rotateThemes, 8000);
         } else {
-            // Om det bara är en sak (t.ex. dagens temadag), stäng av animationen så den ligger still
             contentElement.classList.remove('fade-in-out');
             if(themeInterval) clearInterval(themeInterval);
         }
-        
         rotateThemes();
     }
 
     function rotateThemes() {
         const contentElement = document.getElementById('theme-content');
         if(!contentElement) return;
-        
         const item = currentItems[currentThemeIndex];
-        
-        // Göm texten "Idag" om vi bara visar allmänna fakta, annars syns den
         const dateHtml = (document.getElementById('theme-title').innerText === "Dagens Temadag") 
-            ? `<span class="theme-date">Idag</span>` 
-            : `<span class="theme-date" style="opacity: 0;">-</span>`; 
+            ? `<span class="theme-date">Idag</span>` : `<span class="theme-date" style="opacity: 0;">-</span>`; 
 
-        contentElement.innerHTML = `
-            <span class="theme-icon">${item.icon}</span>
-            ${dateHtml}
-            <span class="theme-name">${item.name}</span>
-        `;
-        
+        contentElement.innerHTML = `<span class="theme-icon">${item.icon}</span>${dateHtml}<span class="theme-name">${item.name}</span>`;
         currentThemeIndex = (currentThemeIndex + 1) % currentItems.length;
     }
 
     initThemes();
-    // Uppdatera vid midnatt (kollar varje timme om dagen bytts)
     setInterval(initThemes, 3600000); 
 
     // --- KLOCKA OCH DATUM ---
@@ -588,6 +573,7 @@
 
     // --- ORGANISATIONSDATA ---
     const orgData = {
+        'sn': { title: 'Skolnämnden', role: 'Politisk ledning', items: ['Yttersta ansvaret för skolförvaltningens verksamheter.', 'Beslutar om övergripande mål och riktlinjer.', 'Fattar beslut om budget och resursfördelning.'] },
         'fc': { title: 'Förvaltningschef', role: 'Fredrik Hellsten', items: ['Övergripande ansvar.'], image: 'Fredrik_Hellsten_2.jpg', caption: 'Fotograf: Emmy Jonsson' },
         'lg': { title: 'Ledningsgrupp', role: 'Ledningsgrupp', items: ['Strategiskt arbete.'] },
         'f6': { title: 'Skola F-6', role: 'Caroline Billing, Verksamhetschef', items: ['Grundskola'] },
