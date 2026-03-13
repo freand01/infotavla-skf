@@ -30,7 +30,7 @@
             display: flex;
             flex-direction: column; 
             width: 100%;
-            padding: 20px 40px; 
+            padding: 10px 40px; 
             background: var(--white);
             border-bottom: 2px solid var(--molndal-beige);
             z-index: 10;
@@ -41,10 +41,10 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            margin-bottom: 15px; 
+            margin-bottom: 10px; 
         }
 
-        .logo img { height: 70px; width: auto; display: block; }
+        .logo img { height: 90px; width: auto; display: block; }
 
         .datetime-container {
             text-align: right;
@@ -74,7 +74,7 @@
         nav button {
             background: none;
             border: 2px solid transparent;
-            padding: 12px 20px;
+            padding: 10px 20px;
             font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
@@ -127,7 +127,7 @@
             justify-content: center;
             gap: 20px;
             width: 100%;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .action-btn {
@@ -146,66 +146,95 @@
         }
         .action-btn:active { transform: scale(0.97); background-color: #f0f0f0; }
 
+        /* --- HJÄLTE-KORT (Dagens Info) --- */
         .hero-card {
             background: var(--molndal-beige);
             color: var(--text-dark);
-            padding: 40px;
+            padding: 35px;
             border-radius: 15px;
             width: 100%;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             text-align: center;
+            margin-bottom: 30px;
         }
         .hero-card h2 { font-size: 2.2rem; margin-top: 0; margin-bottom: 20px; font-weight: 600; }
         .hero-card p { font-size: 1.4rem; line-height: 1.6; margin: 0; }
 
-        /* --- UNDERSIDOR (Allmän stil) --- */
-        .sub-page-content h1 { font-size: 3rem; margin-top: 0; font-weight: 400; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 15px; text-align: center; }
-        
-        .org-instruction {
-            text-align: center;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 0;
-            margin-bottom: 40px;
-        }
-
-        /* --- ORGANISATION --- */
-        .org-grid-portrait {
+        /* --- WIDGETS --- */
+        .widgets-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); 
+            grid-template-columns: 1fr 1fr; 
             gap: 20px;
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .widget-card {
+            background: var(--white);
+            color: var(--molndal-blue);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 180px;
+            position: relative;
         }
         
-        .org-box {
-            background-color: var(--white);
-            color: var(--molndal-blue);
-            border: none;
-            border-radius: 8px;
-            font-size: 1.3rem;
+        .widget-title {
+            position: absolute;
+            top: 15px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
             font-weight: 600;
-            cursor: pointer;
-            padding: 20px;
-            text-align: left;
-            position: relative;
-            padding-right: 40px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            width: 100%;
+            text-align: center;
         }
+
+        /* Väder */
+        .weather-content { margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
+        .weather-icon { font-size: 3.5rem; line-height: 1; margin-bottom: 5px; }
+        .weather-temp { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; }
+        .weather-desc { font-size: 1.1rem; color: #666; text-transform: capitalize; }
+
+        /* Temadagar / Fakta */
+        .theme-content { 
+            margin-top: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%;
+            padding: 0 10px;
+        }
+        .theme-icon { font-size: 3rem; margin-bottom: 8px; }
+        .theme-date { font-size: 0.95rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .theme-name { font-size: 1.2rem; font-weight: 700; color: var(--molndal-blue); line-height: 1.3; }
+        
+        .fade-in-out {
+            animation: textFade 8s infinite;
+        }
+        @keyframes textFade {
+            0% { opacity: 0; transform: translateY(5px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-5px); }
+        }
+
+        /* --- UNDERSIDOR (Allmän stil) --- */
+        .sub-page-content h1 { font-size: 3rem; margin-top: 0; font-weight: 400; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 15px; margin-bottom: 15px; text-align: center; }
+        .org-instruction { text-align: center; font-size: 1.2rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 40px; }
+
+        /* --- ORGANISATION --- */
+        .org-grid-portrait { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; max-width: 900px; margin: 0 auto; padding-bottom: 40px; }
+        .org-box { background-color: var(--white); color: var(--molndal-blue); border: none; border-radius: 8px; font-size: 1.3rem; font-weight: 600; cursor: pointer; padding: 20px; text-align: left; position: relative; padding-right: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
         .org-box::after { content: '→'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--molndal-beige-dark); }
         .org-box:active { background-color: var(--molndal-beige); transform: scale(0.98); }
-        
-        /* De översta lådorna centreras och tar hela bredden */
-        .org-box.level-top { 
-            background-color: var(--molndal-beige); 
-            color: var(--molndal-blue); 
-            font-size: 1.5rem; 
-            grid-column: 1 / -1; 
-            text-align: center;
-            padding-left: 40px; /* Balanserar upp höger-paddingen för perfekt centrering */
-        }
+        .org-box.level-top { background-color: var(--molndal-beige); color: var(--molndal-blue); font-size: 1.5rem; grid-column: 1 / -1; text-align: center; padding-left: 40px; }
         .org-box span { font-size: 1rem; font-weight: 400; color: #666; display: block; margin-top: 8px; line-height: 1.4; }
 
         /* --- MODAL --- */
@@ -215,20 +244,9 @@
         .modal-overlay.active .modal-content { transform: translateY(0); }
         .modal-close { position: absolute; top: 20px; right: 20px; background: #f0f0f0; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-dark); z-index: 10; }
         
-        /* Modalfotografi / Bild (Fri form) */
         .modal-image-container { display: none; text-align: center; margin-bottom: 25px; }
         .modal-image-container.active { display: block; }
-        
-        .modal-image-container img { 
-            max-width: 100%; 
-            max-height: 250px;
-            width: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            margin: 0 auto; 
-            display: block; 
-        }
-        
+        .modal-image-container img { max-width: 100%; max-height: 250px; width: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 auto; display: block; }
         .modal-caption { font-size: 0.9rem; color: #888; margin-top: 10px; font-style: italic; }
 
         .modal-content h2 { color: var(--molndal-blue); font-size: 2.2rem; margin-top: 0; margin-bottom: 10px; text-align: center; }
@@ -239,15 +257,7 @@
         .modal-list li:last-child { border-bottom: none; }
 
         /* --- KONFERENSRUM --- */
-        .room-grid-portrait { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 30px; 
-            width: 100%; 
-            max-width: 900px; 
-            margin: 0 auto; 
-            padding-bottom: 40px; 
-        }
+        .room-grid-portrait { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 100%; max-width: 900px; margin: 0 auto; padding-bottom: 40px; }
         .room-card { background: white; border-radius: 12px; overflow: hidden; color: var(--text-dark); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
         .room-card img { width: 100%; height: 200px; object-fit: cover; background: #ddd; }
         .room-info { padding: 25px; }
@@ -262,8 +272,7 @@
         <div class="logo">
             <img src="logga mölndal.jpg" alt="Mölndals Stad">
         </div>
-        <div class="datetime-container" id="datetime-display">
-            </div>
+        <div class="datetime-container" id="datetime-display"></div>
     </div>
     <nav>
         <button onclick="showPage('home')" id="nav-home" class="active">Hem</button>
@@ -279,14 +288,33 @@
             <div class="hero-text">
                 <h1>Välkommen till skolförvaltningen, våning 4!</h1>
             </div>
+            
             <div class="action-menu">
                 <button class="action-btn" onclick="showPage('org')">Organisation</button>
                 <button class="action-btn" onclick="showPage('rooms')">Våra konferensrum</button>
                 <button class="action-btn" onclick="showPage('news')">Aktuellt</button>
             </div>
+
             <div class="hero-card">
                 <h2>Dagens information</h2>
-                <p>Använd menyn ovan eller knapparna här för att hitta rätt på våningen, se hur vi är organiserade eller läsa de senaste nyheterna.</p>
+                <p>Välkommen till vår digitala informationstavla. Använd menyn ovan eller knapparna här för att navigera.</p>
+            </div>
+
+            <div class="widgets-container">
+                <div id="weather" class="widget-card">
+                    <div class="widget-title">Väder från SMHI</div>
+                    <div class="weather-content">
+                        <span class="weather-icon">⏳</span>
+                        <span class="weather-temp">Laddar...</span>
+                        <span class="weather-desc">Mölndal</span>
+                    </div>
+                </div>
+                
+                <div class="widget-card">
+                    <div id="theme-title" class="widget-title">Laddar...</div>
+                    <div id="theme-content" class="theme-content">
+                        </div>
+                </div>
             </div>
         </div>
     </div>
@@ -295,16 +323,13 @@
         <div class="sub-page-content">
             <h1>Vår Organisation</h1>
             <p class="org-instruction">Klicka på respektive ruta för att se mer information och ansvarsområden.</p>
-            
             <div class="org-grid-portrait">
                 <button class="org-box level-top" onclick="openModal('fc')">Förvaltningschef</button>
                 <button class="org-box level-top" onclick="openModal('lg')">Skolförvaltningens ledningsgrupp</button>
-                
                 <button class="org-box" onclick="openModal('f6')">Skola F-6 <br><span>Caroline Billing<br>Verksamhetschef</span></button>
                 <button class="org-box" onclick="openModal('79')">Skola 7-9 <br><span>Caroline Billing<br>Tf Verksamhetschef</span></button>
                 <button class="org-box" onclick="openModal('forskola')">Förskola <br><span>Anna Brügge Josefsson<br>Verksamhetschef</span></button>
                 <button class="org-box" onclick="openModal('elevhalsa')">Barn och elevhälsa <br><span>Torbjörn Brunström<br>Chef</span></button>
-                
                 <button class="org-box" onclick="openModal('myndighet')">Myndighetsutövning <br><span>Erica Goding<br>Chef</span></button>
                 <button class="org-box" onclick="openModal('kommunikation')">Kommunikation <br><span>Erica Goding<br>Chef</span></button>
                 <button class="org-box" onclick="openModal('kvalitet')">Kvalitet, innovation & digitalisering <br><span>Erica Ekenmo<br>Bitr. Förvaltningschef</span></button>
@@ -317,70 +342,19 @@
         <div class="sub-page-content">
             <h1>Våra konferensrum</h1>
             <div class="room-grid-portrait">
-                
-                <div class="room-card">
-                    <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=600&q=80" alt="Rum 412">
-                    <div class="room-info">
-                        <h3>Rum 412</h3>
-                        <p><strong>Kapacitet:</strong> 6 personer<br><strong>Utrustning:</strong> Skärm och videobar för digitala möten.</p>
-                    </div>
-                </div>
-                
-                <div class="room-card">
-                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80" alt="Rum 413">
-                    <div class="room-info">
-                        <h3>Rum 413</h3>
-                        <p><strong>Kapacitet:</strong> 6 personer<br><strong>Utrustning:</strong> Skärm, kamera och konferenshögtalare.</p>
-                    </div>
-                </div>
-                
-                <div class="room-card">
-                    <img src="https://images.unsplash.com/photo-1505409859467-3a796fd5798e?auto=format&fit=crop&w=600&q=80" alt="Rum 414">
-                    <div class="room-info">
-                        <h3>Rum 414</h3>
-                        <p><strong>Kapacitet:</strong> 10 personer<br><strong>Utrustning:</strong> Projektor, kamera och konferenshögtalare.</p>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Rum 415">
-                    <div class="room-info">
-                        <h3>Rum 415</h3>
-                        <p><strong>Kapacitet:</strong> 8 personer<br><strong>Utrustning:</strong> Skärm, kamera och konferenshögtalare.</p>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <img src="https://images.unsplash.com/photo-1573496130141-209d200cebd8?auto=format&fit=crop&w=600&q=80" alt="Rum 422B">
-                    <div class="room-info">
-                        <h3>Rum 422B</h3>
-                        <p><strong>Kapacitet:</strong> 4 personer<br><strong>Utrustning:</strong> Skärm och videobar för digitala möten.</p>
-                    </div>
-                </div>
-
-                <div class="room-card">
-                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80" alt="Skypebåsen">
-                    <div class="room-info">
-                        <h3>Skypebåsen</h3>
-                        <p>Tre separata bås: Två singelbås (endast skärm) samt ett dubbelbås (skärm och kamera).</p>
-                    </div>
-                </div>
-
+                <div class="room-card"><img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=600&q=80" alt="Rum 412"><div class="room-info"><h3>Rum 412</h3><p><strong>Kapacitet:</strong> 6 personer<br><strong>Utrustning:</strong> Skärm och videobar.</p></div></div>
+                <div class="room-card"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80" alt="Rum 413"><div class="room-info"><h3>Rum 413</h3><p><strong>Kapacitet:</strong> 6 personer<br><strong>Utrustning:</strong> Skärm, kamera och högtalare.</p></div></div>
+                <div class="room-card"><img src="https://images.unsplash.com/photo-1505409859467-3a796fd5798e?auto=format&fit=crop&w=600&q=80" alt="Rum 414"><div class="room-info"><h3>Rum 414</h3><p><strong>Kapacitet:</strong> 10 personer<br><strong>Utrustning:</strong> Projektor, kamera och högtalare.</p></div></div>
+                <div class="room-card"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Rum 415"><div class="room-info"><h3>Rum 415</h3><p><strong>Kapacitet:</strong> 8 personer<br><strong>Utrustning:</strong> Skärm, kamera och högtalare.</p></div></div>
+                <div class="room-card"><img src="https://images.unsplash.com/photo-1573496130141-209d200cebd8?auto=format&fit=crop&w=600&q=80" alt="Rum 422B"><div class="room-info"><h3>Rum 422B</h3><p><strong>Kapacitet:</strong> 4 personer<br><strong>Utrustning:</strong> Skärm och videobar.</p></div></div>
+                <div class="room-card"><img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80" alt="Skypebåsen"><div class="room-info"><h3>Skypebåsen</h3><p>Det finns 3 stycken skypebås för digitala möten. 2 stycken är singelbås med skärm och 1 bås är för två personer med skärm och kamera.</p></div></div>
             </div>
         </div>
     </div>
 
     <div id="news" class="page">
         <div style="width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center;">
-            <iframe 
-                src="https://docs.google.com/presentation/d/e/2PACX-1vRewLM7Lo50uiDDe8S-f7hFlWYZzqa8osZViakCHAqeVLt63c_lkCH_9YXGnCk41R_HmG6fWtK-6ETK/pubembed?start=true&loop=true&delayms=3000&rm=minimal" 
-                frameborder="0" 
-                width="100%" 
-                height="100%" 
-                allowfullscreen="true" 
-                mozallowfullscreen="true" 
-                webkitallowfullscreen="true">
-            </iframe>
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRc1qgToFMezr-bIHMEI6CjigVI1XInGcRDjIg3p4CiwtbEawtPAUJtbPNobQzAv-hhJao898rnJkfk/pubembed?start=true&loop=true&delayms=3000&rm=minimal" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
         </div>
     </div>
 </main>
@@ -388,119 +362,247 @@
 <div class="modal-overlay" id="org-modal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal(null)">✕</button>
-        
         <div class="modal-image-container" id="modal-image-container">
             <img id="modal-image" src="" alt="Profilbild">
             <div class="modal-caption" id="modal-caption"></div>
         </div>
-
         <h2 id="modal-title">Titel</h2>
         <h3 id="modal-role">Roll</h3>
-        <ul class="modal-list" id="modal-list">
-            </ul>
+        <ul class="modal-list" id="modal-list"></ul>
     </div>
 </div>
 
 <script>
+    // --- TEMADAGAR & LOKALA FAKTA LOGIK ---
+    
+    // Komprimerad lista för att slippa enorma mängder kod.
+    // Byggs automatiskt upp till det fulla formatet med emojis via funktionen nedan!
+    const rawThemeDays = [
+        "1-1|Int. pizzadagen", "1-2|Världsdagen för introverta", "1-3|Int. JRR Tolkien-dagen", "1-4|Punktskriftens dag", "1-7|Temadagens dag", "1-12|Marsipanens dag", "1-15|Tulpanens dag", "1-16|Int. LCHF-dagen", "1-18|Världsreligionsdagen", "1-19|Martin Luther King-dagen", "1-20|Lösenordsbytardagen", "1-21|Kramens dag", "1-22|Vinets dag", "1-23|Elens dag", "1-24|Frufridagen", "1-25|Halvsnödagen", "1-27|Förintelsens minnesdag", "1-28|Int. Legodagen", "1-29|Veganpizzadagen", "1-31|Släktforskningens dag",
+        "2-1|Vegetariska dagen", "2-2|Murmeldjursdagen", "2-3|Andningens dag", "2-4|Världscancerdagen", "2-5|Nutelladagen", "2-6|Samernas nationaldag", "2-7|Tankens dag", "2-8|Äggahalvans dag", "2-9|Int. epilepsidagen", "2-10|Baljväxtens dag", "2-11|Int. 112-dagen", "2-12|Darwins födelsedag", "2-13|Världsradiodagen", "2-14|Alla hjärtans dag", "2-15|Int. barncancerdagen", "2-17|Int. pannkaksdagen", "2-18|Fotens dag", "2-19|Knäckebrödets dag", "2-20|Slarvighetens dag", "2-21|Int. dagen för modersmål", "2-22|Alla scouters dag", "2-23|Kakelplattans dag", "2-24|Int. EBM-dagen", "2-25|Grapefruktens dag", "2-26|Husmanskostens dag", "2-27|Int. isbjörnsdagen", "2-28|Int. musarmsdagen",
+        "3-1|Int. dagen mot diskriminering", "3-2|Serietidningens dag", "3-3|Mandelkubbens dag", "3-4|Bananens dag", "3-5|Ostbågens dag", "3-6|Europeiska logopeddagen", "3-7|Punschrullens dag", "3-8|Int. kvinnodagen", "3-9|Tomatsåsens dag", "3-10|V8-motorns dag", "3-11|Rörmokeriets världsdag", "3-12|Alla korvars dag", "3-13|Källkritikens dag", "3-14|Pi-dagen", "3-15|NPF-dagen", "3-16|Kvänfolkets dag", "3-17|Kollektivavtalets dag", "3-18|Bussförarens dag", "3-19|Supporterns dag", "3-20|Int. glädjedagen", "3-21|Int. Downs syndrom-dagen", "3-22|Int. vattendagen", "3-23|Nordens dag", "3-24|Världstuberkulosdagen", "3-25|Trandagen", "3-26|Dialersystemens dag", "3-27|Världsteaterdagen", "3-30|Bipolärdagen", "3-31|Världsbackupdagen",
+        "4-1|Skojardagen", "4-2|Int. barnboksdagen", "4-3|Kärlekens dag", "4-4|Morotens dag", "4-5|Capsens dag", "4-6|Barn på sjukhusdagen", "4-7|Världshälsodagen", "4-8|Romernas int. dag", "4-9|CSS-naked day", "4-10|Int. Syskondagen", "4-11|Int. Parkinsondagen", "4-12|Lakritsdagen", "4-13|Knytblusens dag", "4-14|Volvons dag", "4-16|Världsröstdagen", "4-17|De blödarsjukas dag", "4-18|Amatörradions dag", "4-19|Skottkärrans dag", "4-20|Polkagrisens dag", "4-21|Terrakottakrukans dag", "4-22|Jordens dag", "4-23|Världsbokdagen", "4-24|Försöksdjurens dag", "4-25|Världsmalariadagen", "4-26|Promenadens dag", "4-27|Världstapirdagen", "4-28|Arbetsmiljödagen", "4-29|Dansens dag",
+        "5-1|Budapestbakelsens dag", "5-2|Harry Potter-dagen", "5-3|Int. dagen för pressfrihet", "5-4|Star Wars-dagen", "5-5|Int. barnmorskedagen", "5-6|Dragspelets dag", "5-8|Int. vikingadagen", "5-9|Europadagen", "5-10|Int. SLE-dagen", "5-11|Chokladbollens dag", "5-12|Massagens dag", "5-13|Receptionistens dag", "5-14|Teckenspråkets dag", "5-15|Int. familjedagen", "5-16|Int. celiakidagen", "5-17|Norges nationaldag", "5-18|Int. Museidagen", "5-19|Nat. mag- och tarmdagen", "5-20|Int. bi-dagen", "5-21|Förskolans dag", "5-22|Picknickens dag", "5-23|Int. sköldpaddsdagen", "5-24|Nationalparkernas dag", "5-25|Int. nörddagen", "5-27|Muffinsdagen", "5-28|Den stressfria dagen", "5-30|Int. MS-dagen", "5-31|Int. dagen mot tobak",
+        "6-1|Mjölkens dag", "6-2|Int. artrosdagen", "6-3|Int. klumpfotsdagen", "6-4|Assistansens dag", "6-5|Alla vänners dag", "6-6|Motorhistoriska dagen", "6-7|Punkens dag", "6-8|Världshavens dag", "6-9|Int. arkivdagen", "6-12|Int. dagen mot barnarbete", "6-13|Nationalbastudagen", "6-14|Int. blodgivardagen", "6-15|Chaufförens dag", "6-16|Bloomsday", "6-18|Pionens dag", "6-19|Frisörens dag", "6-20|Int. surfdagen", "6-21|Int. selfiedagen", "6-23|FN:s dag för offentliga tjänster", "6-25|Int. dagen för sjöfarare", "6-26|Chokladpuddingens dag", "6-29|Nationella entreprenörsdagen", "6-30|Pilsnerkorvens dag",
+        "7-2|Rosens dag", "7-4|Int. dagen för kooperativ", "7-6|Int. kyssdagen", "7-7|Hudvårdens dag", "7-10|Hoya - Porslinsblommans dag", "7-11|FN:s befolkningsdag", "7-12|Fulhetens dag", "7-13|Paltdagen", "7-15|Tornedalingarnas dag", "7-17|Emojins dag", "7-18|Int. Nelson Mandela-dagen", "7-19|Skånska flaggans dag", "7-20|Int. schackdagen", "7-22|Approximativa pi-dagen", "7-23|Varmkorvens dag", "7-24|Drive thru-dagen", "7-25|Trä nålen-dagen", "7-26|Bellmandagen", "7-27|Sjusovardagen", "7-28|Jakttornets dag", "7-29|Int. tigerdagen", "7-30|Världsbroderidagen", "7-31|Dagen för ovanliga instrument",
+        "8-1|Alla flickvänners dag", "8-2|Hembygdsgårdarnas dag", "8-3|Vattenmelonens dag", "8-4|Alla systrars dag", "8-6|Hiroshimadagen", "8-7|Int. öldagen", "8-8|Loppmarknadens dag", "8-9|Rulltårtans dag", "8-10|Larsdagen", "8-12|Int. ungdomsdagen", "8-13|Vänsterhäntas dag", "8-15|Mormorsrutans dag", "8-16|Berätta ett skämt-dagen", "8-19|Luftfartsdagen", "8-20|Honungens dag", "8-21|Alla pensionärers dag", "8-22|Int. müslidagen", "8-23|Köttbullens dag", "8-24|Plutos degraderings årsdag", "8-26|Alla hundars dag", "8-27|Sveriges Raoul Wallenbergdag", "8-30|Arkeologidagen", "8-31|Int. förebildsdagen",
+        "9-1|Fluortantens dag", "9-2|Nationella tapetserardagen", "9-3|Skolledarnas dag", "9-4|Ungas psykiska hälsas dag", "9-5|Int. dagen för välgörenhet", "9-6|Dansbandens dag", "9-7|Salamins dag", "9-8|Int. läskunnighetsdagen", "9-9|Yrkesförarens dag", "9-10|Int. suicidpreventiva dagen", "9-11|Kebabens dag", "9-12|TV-spelsdagen", "9-13|Programmerarens dag", "9-14|Int. dagen för atopiskt eksem", "9-15|Int. dagen för demokrati", "9-17|Höga klackars dag", "9-18|Surkålens dag", "9-19|Messmörets dag", "9-20|Bålens dag", "9-21|Int. fredsdagen", "9-22|Int. bilfria dagen", "9-23|Int. teckenspråksdagen", "9-24|Skiljetecknets dag", "9-25|Äpplets dag", "9-26|Europeiska språkdagen", "9-27|Världsturismdagen", "9-28|Int. rabiesdagen", "9-29|Kaffets dag", "9-30|Int. dagen för översättning",
+        "10-1|Bröstcancerdagen", "10-2|Int. ickevåldsdagen", "10-3|Alla pojkvänners dag", "10-4|Djurens dag", "10-5|Int. dagen för lärare", "10-6|Nationella anhörigdagen", "10-7|Elmotorns dag", "10-8|Vägledningens dag", "10-9|Äggets dag", "10-10|Världsdagen för mental hälsa", "10-11|Äpplemustens dag", "10-12|Int. reumatikerdagen", "10-13|Världstrombosdagen", "10-14|Räkmackans dag", "10-15|Fetaostens dag", "10-16|Lexikonens dag", "10-17|Parisarens dag", "10-18|Chokladmuffins dag", "10-19|Strävhårig foxterrier-dagen", "10-20|Världsdagen för statistik", "10-22|Int. CAPS LOCK-DAGEN", "10-23|Int. moldagen", "10-25|Världspastadagen", "10-26|Potatisens dag", "10-27|Alla svärmödrars dag", "10-28|Bilens dag", "10-29|Int. psoriasisdagen", "10-30|Dennis Ritchie-dagen", "10-31|Halloween",
+        "11-1|Int. vegandagen", "11-2|De dödas dag", "11-4|No hate day", "11-5|Guy Fawkes Day", "11-7|Kladdkakans dag", "11-8|Infraservicedagen", "11-11|Chokladens dag", "11-12|Alla krossade hjärtans dag", "11-13|Smörgåstårtans dag", "11-14|Ostkakans dag", "11-15|Fängslade författares dag", "11-16|Int. dagen för tolerans", "11-17|Napoleonbakelsens dag", "11-18|Adoptionernas dag", "11-19|Int. mansdagen", "11-20|Barnkonventionsdagen", "11-21|Musikfri dag", "11-22|Wienerbrödets dag", "11-23|Sankt Clemens dag", "11-25|Dagen mot våld mot kvinnor", "11-26|Thanksgiving", "11-27|Hudterapeutens dag", "11-28|Flaskmatardagen", "11-29|Vinylskivans dag", "11-30|Guldsmedens dag",
+        "12-1|Int. AIDS-dagen", "12-2|Modelljärnvägens dag", "12-3|Int. dagen för handikappade", "12-4|Armbandsklockans dag", "12-5|Världsdagen för jordmån", "12-6|Finlands självständighetsdag", "12-7|Int. dagen för civil luftfart", "12-9|Int. dagen mot korruption", "12-10|Mänskliga rättigheternas dag", "12-11|Int. dagen för världens berg", "12-12|Julstjärnans dag", "12-18|Jultröjans dag", "12-20|Mänskliga solidaritetens dag", "12-21|Skumtomtens dag", "12-27|Nationella regifting-dagen", "12-29|Statisternas dag"
+    ];
+
+    // AI-motorn som automatiskt sätter rätt emoji baserat på texten i temadagen
+    function getAutoEmoji(name) {
+        const text = name.toLowerCase();
+        if (text.includes('pizza')) return '🍕';
+        if (text.includes('kaffe')) return '☕';
+        if (text.includes('choklad') || text.includes('nutella')) return '🍫';
+        if (text.includes('kärlek') || text.includes('kram') || text.includes('hjärta')) return '❤️';
+        if (text.includes('djur') || text.includes('hund') || text.includes('tiger') || text.includes('björn')) return '🐾';
+        if (text.includes('bok') || text.includes('läs') || text.includes('lexikon')) return '📖';
+        if (text.includes('barn') || text.includes('ung') || text.includes('flick') || text.includes('pojk')) return '🧸';
+        if (text.includes('kvinno') || text.includes('syst') || text.includes('mormor') || text.includes('mors')) return '👩';
+        if (text.includes('man') || text.includes('bror') || text.includes('far')) return '👨';
+        if (text.includes('bil') || text.includes('motor') || text.includes('volvo') || text.includes('buss')) return '🚗';
+        if (text.includes('hälsa') || text.includes('sjuk') || text.includes('blod') || text.includes('cancer')) return '🩺';
+        if (text.includes('äpple') || text.includes('frukt')) return '🍎';
+        if (text.includes('bulle') || text.includes('bakelse') || text.includes('kaka') || text.includes('tårta') || text.includes('wienerbröd') || text.includes('muffin')) return '🧁';
+        if (text.includes('vegetarisk') || text.includes('vegan') || text.includes('morot') || text.includes('potatis')) return '🥕';
+        if (text.includes('korv') || text.includes('kött')) return '🌭';
+        if (text.includes('mat') || text.includes('kost') || text.includes('ägg')) return '🍳';
+        if (text.includes('vatten') || text.includes('hav')) return '🌊';
+        if (text.includes('miljö') || text.includes('natur') || text.includes('jord') || text.includes('park')) return '🌿';
+        if (text.includes('tulpan') || text.includes('ros') || text.includes('pion') || text.includes('blom')) return '🌷';
+        if (text.includes('snö') || text.includes('is')) return '❄️';
+        if (text.includes('teater') || text.includes('dans') || text.includes('musik') || text.includes('skiva')) return '🎭';
+        if (text.includes('öl')) return '🍺';
+        if (text.includes('vin')) return '🍷';
+        if (text.includes('spel') || text.includes('lego')) return '🎲';
+        if (text.includes('data') || text.includes('it') || text.includes('lösenord') || text.includes('program')) return '💻';
+        if (text.includes('lärare') || text.includes('skol') || text.includes('utbildning')) return '🏫';
+        if (text.includes('värld') || text.includes('internationella') || text.includes('fn')) return '🌍';
+        return '🎉'; // Standard-emoji om inget specifikt ord hittas
+    }
+
+    // Bygg databasen dynamiskt
+    const themeDaysDb = {};
+    rawThemeDays.forEach(item => {
+        const parts = item.split('|');
+        const dateKey = parts[0];
+        const name = parts[1];
+        if (!themeDaysDb[dateKey]) themeDaysDb[dateKey] = [];
+        themeDaysDb[dateKey].push({
+            icon: getAutoEmoji(name),
+            name: name
+        });
+    });
+
+    // Slumpmässiga fakta som visas när det INTE är en temadag
+    const funFacts = [
+        { icon: "💡", name: "Mölndal fick stadsrättigheter år 1922." },
+        { icon: "🏫", name: "I Mölndal finns över 10 000 barn och elever." },
+        { icon: "🌿", name: "Mölndalsån har gett kraft åt kvarnar i hundratals år." },
+        { icon: "☕", name: "Glöm inte att ta en skön paus vid kaffemaskinen!" }
+    ];
+
+    let currentItems = [];
+    let currentThemeIndex = 0;
+    let themeInterval = null;
+
+    function initThemes() {
+        const now = new Date();
+        const dateKey = (now.getMonth() + 1) + "-" + now.getDate();
+        
+        const titleElement = document.getElementById('theme-title');
+        const contentElement = document.getElementById('theme-content');
+        
+        // Kolla om vi har en temadag exakt idag
+        if (themeDaysDb[dateKey] && themeDaysDb[dateKey].length > 0) {
+            currentItems = themeDaysDb[dateKey];
+            titleElement.innerText = "Dagens Temadag";
+        } else {
+            // Om inte, ladda in lokala fakta
+            currentItems = funFacts;
+            titleElement.innerText = "Visste du att...";
+        }
+
+        // Om vi har mer än 1 sak att visa, slå på animationen
+        if (currentItems.length > 1) {
+            contentElement.classList.add('fade-in-out');
+            if(themeInterval) clearInterval(themeInterval);
+            themeInterval = setInterval(rotateThemes, 8000);
+        } else {
+            // Om det bara är en sak (t.ex. dagens temadag), stäng av animationen så den ligger still
+            contentElement.classList.remove('fade-in-out');
+            if(themeInterval) clearInterval(themeInterval);
+        }
+        
+        rotateThemes();
+    }
+
+    function rotateThemes() {
+        const contentElement = document.getElementById('theme-content');
+        if(!contentElement) return;
+        
+        const item = currentItems[currentThemeIndex];
+        
+        // Göm texten "Idag" om vi bara visar allmänna fakta, annars syns den
+        const dateHtml = (document.getElementById('theme-title').innerText === "Dagens Temadag") 
+            ? `<span class="theme-date">Idag</span>` 
+            : `<span class="theme-date" style="opacity: 0;">-</span>`; 
+
+        contentElement.innerHTML = `
+            <span class="theme-icon">${item.icon}</span>
+            ${dateHtml}
+            <span class="theme-name">${item.name}</span>
+        `;
+        
+        currentThemeIndex = (currentThemeIndex + 1) % currentItems.length;
+    }
+
+    initThemes();
+    // Uppdatera vid midnatt (kollar varje timme om dagen bytts)
+    setInterval(initThemes, 3600000); 
+
     // --- KLOCKA OCH DATUM ---
     function updateDateTime() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
         let dateString = now.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
-        
         const display = document.getElementById('datetime-display');
         if (display) {
             display.innerHTML = `<div class="time-text">${timeString}</div><div class="date-text">${dateString}</div>`;
         }
     }
-    
-    updateDateTime();
     setInterval(updateDateTime, 1000);
+    updateDateTime();
 
-    // --- SIDHANTERING OCH TIMEOUT ---
+    // --- SMHI VÄDER ---
+    async function updateWeather() {
+        const lat = 57.6536; 
+        const lon = 12.0132; 
+        const url = `https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            const current = data.timeSeries[0].parameters;
+            const temp = current.find(p => p.name === "t").values[0];
+            const symbol = current.find(p => p.name === "Wsymb2").values[0];
+            const symbols = {
+                1: "☀️", 2: "🌤️", 3: "🌥️", 4: "☁️", 5: "☁️", 6: "☁️", 7: "🌫️",
+                8: "🌦️", 9: "🌧️", 10: "🌧️", 11: "⚡", 12: "🌨️", 13: "🌨️", 14: "🌨️",
+                18: "🌧️", 19: "🌧️", 20: "⚡"
+            };
+            document.getElementById('weather').innerHTML = `
+                <div class="widget-title">Väder från SMHI</div>
+                <div class="weather-content">
+                    <span class="weather-icon">${symbols[symbol] || "🌤️"}</span>
+                    <span class="weather-temp">${Math.round(temp)}°C</span>
+                    <span class="weather-desc">Mölndal</span>
+                </div>
+            `;
+        } catch (error) {
+            document.getElementById('weather').innerHTML = `<div class="widget-title">Väder från SMHI</div><div class="weather-content"><span class="weather-icon">☁️</span><span class="weather-temp">--°C</span><span class="weather-desc">Mölndal</span></div>`;
+        }
+    }
+    updateWeather();
+    setInterval(updateWeather, 1800000); 
+
+    // --- NAVIGERING OCH TIMEOUT ---
     let idleTimer;
-
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        
         document.getElementById(pageId).classList.add('active');
         const navBtn = document.getElementById('nav-' + pageId);
         if(navBtn) navBtn.classList.add('active');
-        
         resetIdleTimer();
     }
-
     function resetIdleTimer() {
         clearTimeout(idleTimer);
-        idleTimer = setTimeout(() => {
-            showPage('home');
-            closeModal(null);
-        }, 120000); 
+        idleTimer = setTimeout(() => { showPage('home'); closeModal(null); }, 120000);
     }
-
     window.onload = resetIdleTimer;
-    window.onmousemove = resetIdleTimer;
-    window.onmousedown = resetIdleTimer;
-    window.ontouchstart = resetIdleTimer;
     window.onclick = resetIdleTimer;
-    window.onkeypress = resetIdleTimer;
+    window.ontouchstart = resetIdleTimer;
 
-    // --- DATA FÖR ORGANISATION ---
+    // --- ORGANISATIONSDATA ---
     const orgData = {
-        'fc': { 
-            title: 'Förvaltningschef', 
-            role: 'Fredrik Hellsten', 
-            items: ['Övergripande ansvar för skolförvaltningen.'],
-            image: 'Fredrik_Hellsten_2.jpg',
-            caption: 'Fotograf: Emmy Jonsson'
-        },
-        'lg': { title: 'Skolförvaltningens ledningsgrupp', role: 'Ledningsgrupp', items: ['Samordnar förvaltningens strategiska arbete.', 'Består av förvaltningschef och verksamhetschefer.'] },
+        'fc': { title: 'Förvaltningschef', role: 'Fredrik Hellsten', items: ['Övergripande ansvar.'], image: 'Fredrik_Hellsten_2.jpg', caption: 'Fotograf: Emmy Jonsson' },
+        'lg': { title: 'Ledningsgrupp', role: 'Ledningsgrupp', items: ['Strategiskt arbete.'] },
         'f6': { title: 'Skola F-6', role: 'Caroline Billing, Verksamhetschef', items: ['Grundskola'] },
         '79': { title: 'Skola 7-9', role: 'Caroline Billing, Tf Verksamhetschef', items: ['Grundskola', 'Språkcentrum', 'Kulturskolan', 'Anpassad grundskola', 'Verksamhetsutvecklare'] },
         'forskola': { title: 'Förskola', role: 'Anna Brügge Josefsson, Verksamhetschef', items: ['Förskola', 'Pedagogisk omsorg', 'Barnhälsa', 'Öppen förskola / familjecentraler', 'Verksamhetsutvecklare'] },
         'elevhalsa': { title: 'Barn och elevhälsa', role: 'Torbjörn Brunström, Chef', items: ['Professionsnätverk', 'Central elevhälsa', 'Verksamhetschef enligt HSL', 'Mottagning anpassad grundskola', 'Samverkan hälsa, främjande och förebyggande insatser'] },
-        'myndighet': { title: 'Myndighetsutövning', role: 'Erica Goding, Chef', items: ['Nämnd och administration', 'Juridik', 'Skolskjuts', 'Placering skola/förskola', 'Tillsyn och tillstånd', 'Registratur och arkiv'] },
-        'kommunikation': { title: 'Kommunikation', role: 'Erica Goding, Chef', items: ['Kommunikation och PR', 'Intern information'] },
-        'kvalitet': { title: 'Kvalitet, innovation & digitalisering', role: 'Erica Ekenmo, Biträdande förvaltningschef', items: ['Kvalitet och innovation', 'Digitalisering', 'IT'] },
-        'ekonomi': { title: 'Ekonomi och fastighet', role: 'Sten-Inge Lilja, Chef', items: ['Ekonomi', 'Lokalplanering', 'Projektsamordning lokaler', 'Säkerhet'] }
+        'myndighet': { title: 'Myndighetsutövning', role: 'Erica Goding, Chef', items: ['Nämnd och administration', 'Juridik', 'Skolskjuts', 'Placering skola / förskola', 'Tillsyn och tillstånd', 'Registratur och arkiv'] },
+        'kommunikation': { title: 'Kommunikation', role: 'Erica Goding, Chef', items: ['Intern och extern kommunikation'] },
+        'kvalitet': { title: 'Kvalitet & Digitalisering', role: 'Erica Ekenmo, Biträdande förvaltningschef', items: ['Kvalitet och innovation', 'Digitalisering', 'IT'] },
+        'ekonomi': { title: 'Ekonomi & fastighet', role: 'Sten-Inge Lilja, Chef', items: ['Ekonomi', 'Lokalplanering', 'Projektsamordning lokaler', 'Säkerhet'] }
     };
 
-    const modal = document.getElementById('org-modal');
-    
     function openModal(unitKey) {
         const data = orgData[unitKey];
         document.getElementById('modal-title').innerText = data.title;
         document.getElementById('modal-role').innerText = data.role;
-        
         const imgContainer = document.getElementById('modal-image-container');
         if (data.image) {
             document.getElementById('modal-image').src = data.image;
             document.getElementById('modal-caption').innerText = data.caption || '';
             imgContainer.classList.add('active');
-        } else {
-            imgContainer.classList.remove('active');
-        }
-        
+        } else { imgContainer.classList.remove('active'); }
         const ul = document.getElementById('modal-list');
         ul.innerHTML = ''; 
-        data.items.forEach(item => {
-            let li = document.createElement('li');
-            li.innerText = item;
-            ul.appendChild(li);
-        });
-        
-        modal.classList.add('active');
+        data.items.forEach(item => { let li = document.createElement('li'); li.innerText = item; ul.appendChild(li); });
+        document.getElementById('org-modal').classList.add('active');
         resetIdleTimer();
     }
 
     function closeModal(event) {
-        if (!event || event.target === modal) {
-            modal.classList.remove('active');
+        if (!event || event.target.id === 'org-modal' || event.target.className === 'modal-close') {
+            document.getElementById('org-modal').classList.remove('active');
         }
-        resetIdleTimer();
     }
 </script>
-
 </body>
 </html>
